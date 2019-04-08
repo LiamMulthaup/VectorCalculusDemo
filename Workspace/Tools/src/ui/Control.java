@@ -1,4 +1,5 @@
 package ui;
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -29,6 +30,7 @@ public class Control
 	public boolean bottomOriented = false;
 	public boolean rightOriented = false;
 	public boolean antialiasing = false;
+	public double visibility = 1;
 	public Control(int width, int height, JPanel panel, Point location)
 	{
 		this.location = location;
@@ -65,6 +67,9 @@ public class Control
 	}
 	public void paint(Graphics g)
 	{
+
+		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+				(float) (visibility)));
 		if (antialiasing)
 		{
 			((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

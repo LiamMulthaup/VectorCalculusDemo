@@ -37,11 +37,11 @@ public class CircleButton extends Label
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 			}
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) (backgroundVisibility)));
+					(float) (backgroundVisibility * visibility)));
 			g.setColor(backgroundColor);
 			g.fillOval(location.x, location.y, width, height);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) 1));
+					(float) visibility));
 			((Graphics2D) g).setStroke(new BasicStroke(3));
 			g.setColor(borderColor);
 			g.drawOval(location.x, location.y, width, height);

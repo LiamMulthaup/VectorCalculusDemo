@@ -191,6 +191,9 @@ public class Test {
 		Screen.add(panel);
 		Screen.setVisible(true);
 		Screen.repaint();
+		
+		Page menu = new Page(600, 600, panel, new Point(panel.getWidth() / 2 - 300, panel.getHeight() / 2 - 300));
+		
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
 		{
@@ -323,6 +326,7 @@ public class Test {
 						panel.mouseLocked = false;
 						Screen.getContentPane().setCursor(Cursor.getDefaultCursor());
 						listener.exit = false;
+						
 					}
 					else
 					{
@@ -351,6 +355,7 @@ public class Test {
 		Label instructionalText = new Label("[w][a][s][d][space][shift] To Move", panel, new Point());
 		instructionalText.setFont(new Font("Times New Roman", Font.BOLD, 40));
 		instructionalText.setLocation(new Point(panel.getWidth() / 2 - instructionalText.getWidth() / 2, panel.getHeight() / 2 - instructionalText.getHeight() / 2));
+		instructionalText.visibility = 0;
 		instructionalText.setVisible(true);
 		instructionalText.color = new Color(255,255,255);
 		Timer tim2 = new Timer();
@@ -363,17 +368,17 @@ public class Test {
 				ticks++;
 				if (ticks < 400)
 				{
-					panel.controlVisibility = Math.sin(ticks / 400.0 * Math.PI);
+					instructionalText.visibility = Math.sin(ticks / 400.0 * Math.PI);
 				}
 				if (ticks > 400 && ticks < 800)
 				{
 					instructionalText.setText("Press [esc] For Menu");
-					panel.controlVisibility = Math.sin((ticks - 400) / 400.0 * Math.PI);
+					instructionalText.visibility = Math.sin((ticks - 400) / 400.0 * Math.PI);
 				}
 				if (ticks > 800 && ticks < 1200)
 				{
 					instructionalText.setText("Hit [r] For Rocket Mode");
-					panel.controlVisibility = Math.sin((ticks - 800) / 400.0 * Math.PI);
+					instructionalText.visibility = Math.sin((ticks - 800) / 400.0 * Math.PI);
 				}
 				if (ticks > 1200)
 				{

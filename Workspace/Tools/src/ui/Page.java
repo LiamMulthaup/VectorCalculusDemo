@@ -73,12 +73,12 @@ public class Page extends Control
 		super.paint(g);
 		g.setColor(color);
 		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-				(float) (backgroundVisibility)));
+				(float) (backgroundVisibility * visibility)));
 		if (roundedEdges)
 		{
 			g.fillRoundRect(location.x, location.y, width, height, roundedAmount, roundedAmount);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) (1)));
+					(float) (1 * visibility)));
 			g.setColor(borderColor);
 			g.drawRoundRect(location.x, location.y, width, height, roundedAmount, roundedAmount);
 		}
@@ -86,7 +86,7 @@ public class Page extends Control
 		{
 			g.fillRect(location.x, location.y, width, height);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) (1)));
+					(float) (1 * visibility)));
 			g.setColor(borderColor);
 			g.drawRect(location.x, location.y, width, height);
 		}

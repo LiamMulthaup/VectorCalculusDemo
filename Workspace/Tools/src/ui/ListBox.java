@@ -95,18 +95,18 @@ public class ListBox extends Control
 		Graphics g = newlistBoxImage.createGraphics();
 		g.setColor(backgroundColor);
 		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-				(float) (backgroundVisibility)));
+				(float) (backgroundVisibility * visibility)));
 		if (roundedEdges)
 		{
 			g.fillRoundRect(0, 0, width, height, roundedAmount, roundedAmount);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) (1)));
+					(float) (visibility)));
 		}
 		else
 		{
 			g.fillRect(0, 0, width, height);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-					(float) (1)));
+					(float) (visibility)));
 		}
 		g.setFont(font);
 		int scrolledHeight = (int) (scrollBar.barLocation / ((double) height - scrollBar.barSize) * (items.size() * g.getFontMetrics().getHeight() - height));

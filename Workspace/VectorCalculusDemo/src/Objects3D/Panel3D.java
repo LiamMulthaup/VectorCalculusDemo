@@ -43,7 +43,6 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	
 	boolean mouseLocked = false;
 	
-	double controlVisibility;
 	boolean paint = false;
 	
 	public Panel3D()
@@ -103,8 +102,6 @@ public class Panel3D extends JPanel implements MouseMotionListener
 				d.container.tempIndex = containers.size();
 			}
 		}
-		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
-				(float) (controlVisibility)));
 		Control.paintControls(this, g);
 	}
 	public void sortControls()
