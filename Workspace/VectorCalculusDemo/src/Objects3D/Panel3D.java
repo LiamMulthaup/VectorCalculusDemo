@@ -1,6 +1,7 @@
 package Objects3D;
 
 import java.awt.AWTException;
+import java.awt.AlphaComposite;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -9,12 +10,15 @@ import java.awt.Point;
 import java.awt.RenderingHints;
 import java.awt.Robot;
 import java.awt.Toolkit;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import ui.Control;
 
 public class Panel3D extends JPanel implements MouseMotionListener
 {
@@ -38,6 +42,10 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	Point3D panelBottomRight;
 	
 	boolean mouseLocked = false;
+	
+	double controlVisibility;
+	boolean paint = false;
+	
 	public Panel3D()
 	{
 		this.addMouseMotionListener(this);
@@ -95,6 +103,9 @@ public class Panel3D extends JPanel implements MouseMotionListener
 				d.container.tempIndex = containers.size();
 			}
 		}
+		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+				(float) (controlVisibility)));
+		Control.paintControls(this, g);
 	}
 	public void sortControls()
 	{
@@ -180,17 +191,46 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	{
 		if (mouseLocked)
 		{
-			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-			int x = MouseInfo.getPointerInfo().getLocation().x;
-			int y = MouseInfo.getPointerInfo().getLocation().y;
-			perspectiveAngle.horizontal-= (x - (int) (screenSize.getWidth() / 2)) / 1000.0;
-			perspectiveAngle.vertical-= (y - (int) (screenSize.getHeight() / 2)) / 1000.0;
+			Point p = this.getLocationOnScreen();
+			int x = MouseInfo.getPointerInfo().getLocation().x - p.x;
+			int y = MouseInfo.getPointerInfo().getLocation().y - p.y;
+			perspectiveAngle.horizontal-= (x - (int) (this.getWidth() / 2)) / 1000.0;
+			perspectiveAngle.vertical-= (y - (int) (this.getHeight() / 2)) / 1000.0;
 			try {
 				Robot r = new Robot();
-				r.mouseMove((int)(screenSize.getWidth() / 2), (int) (screenSize.getHeight() / 2));
+				r.mouseMove((int)(p.x + this.getWidth() / 2), (int) ( p.y + this.getHeight() / 2));
 			} catch (AWTException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+	}
+	public void addMouseListener()
+	{
+		this.addMouseListener(new PanelListener(this));
+	}
+	public class PanelListener extends MouseAdapter
+	{
+		boolean mousePressed = false;
+		int mX = 0;
+		int mY = 0;
+		Panel3D panel = new Panel3D();
+		public PanelListener(Panel3D panel)
+		{
+			this.panel = panel;
+		}
+		public void mousePressed(MouseEvent e)
+		{
+			mX = e.getX();
+			mY = e.getY();
+			mousePressed = true;
+		}
+		public void mouseReleased(MouseEvent e)
+		{
+			mousePressed = false;
+			if (mX == e.getX() && mY == e.getY() && !mouseLocked)
+			{
+				Control.controlClickEvents(panel, mX, mY, true);
 			}
 		}
 	}

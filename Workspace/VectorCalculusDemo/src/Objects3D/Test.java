@@ -2,6 +2,7 @@ package Objects3D;
 
 import java.awt.Color;
 import java.awt.Cursor;
+import java.awt.Font;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -12,8 +13,13 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import ui.Page;
+import ui.Control;
+import ui.ControlHandler;
+import ui.Label;
+
 public class Test {
-	static boolean stars = true;
+	static boolean stars = false;
 	static boolean sun = false;
 	static boolean saturn = false;
 	public static void main(String[] args)
@@ -37,7 +43,7 @@ public class Test {
 			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
 			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
 			Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
-			a.radius = 60;
+			a.radius = 40;
 			a.color = new Color((int) (200),(int) (0),(int) (200));
 			panel.addControl3D(a);
 			dots[(int)k] = a;
@@ -163,20 +169,6 @@ public class Test {
 		
 		//System.out.println(new Point3D(10, 10, 10).getAngleTo(new Point3D(0, 0, 0)));
 		
-		Dot a = new Dot(new Point3D(100, 10, 10));
-		a.radius = 50;
-		Dot b = new Dot(new Point3D(200, - 10, - 10));
-		b.radius = 30;
-		Dot c = new Dot(new Point3D(400, 10, 10));
-		Dot d = new Dot(new Point3D(- 200, 80, - 200));
-		d.radius = 80;
-		Dot e = new Dot(new Point3D(-1000, - 400, 30));
-		e.radius = 30;
-		Dot f = new Dot(new Point3D(200, 200, - 400));
-		Dot g = new Dot(new Point3D(-1000, 400, 90));
-		Dot h = new Dot(new Point3D(1000, - 10, - 10));
-		Dot i = new Dot(new Point3D(2000, 80, 10));
-		Dot j = new Dot(new Point3D(-3000, 60, - 10));
 		if (sun)
 		{
 			LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
@@ -184,25 +176,17 @@ public class Test {
 			sun.radius = 100000;
 			panel.addControl3D(sun);
 		}
-		CelestialObject earth = new CelestialObject(new Point3D(0, 0, 0));
-		earth.mass = 50000;
-		earth.color = Color.green;
-		panel.addControl3D(earth);
-		earth.radius = 300;
+		
 		KeyEventListener listener = new KeyEventListener();
 		Screen.addKeyListener(listener);
-		b.color = new Color(255, 0, 0);
 		
-		panel.addControl3D(a);
-		panel.addControl3D(b);
-		panel.addControl3D(c);
-		panel.addControl3D(d);
-		panel.addControl3D(e);
-		panel.addControl3D(f);
-		panel.addControl3D(g);
-		panel.addControl3D(h);
-		panel.addControl3D(i);
-		panel.addControl3D(j);
+		panel.mouseLocked = true;
+		BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+		Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+		    cursorImg, new Point(0, 0), "blank cursor");
+		Screen.getContentPane().setCursor(blankCursor);
+		listener.exit = false;
+		
 		panel.addControl3D(cubeLocator);
 		Screen.add(panel);
 		Screen.setVisible(true);
@@ -232,7 +216,7 @@ public class Test {
 				{
 					distance = 2;
 				}
-				boolean paint = false;
+				boolean paint = panel.paint;
 				Point3D addVector = new Point3D();
 				Point3D vectorWorking;
 				if (rocketMode == true)
@@ -359,82 +343,47 @@ public class Test {
 				if (paint)
 				{
 					Screen.repaint();
+					panel.paint = false;
 				}
 			}
 		}, 10, 10);
-		ArrayList<CelestialObject> celestialObjects = new ArrayList<CelestialObject>();
-		celestialObjects.add(earth);
+		panel.addMouseListener();
+		Label instructionalText = new Label("[w][a][s][d][space][shift] To Move", panel, new Point());
+		instructionalText.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		instructionalText.setLocation(new Point(panel.getWidth() / 2 - instructionalText.getWidth() / 2, panel.getHeight() / 2 - instructionalText.getHeight() / 2));
+		instructionalText.setVisible(true);
+		instructionalText.color = new Color(255,255,255);
 		Timer tim2 = new Timer();
+		
 		tim2.scheduleAtFixedRate(new TimerTask()
 		{
-				public void run()
+			int ticks = 0;
+			public void run()
+			{
+				ticks++;
+				if (ticks < 400)
 				{
-					if (listener.gPressed)
-					{
-						CelestialObject newCelestialObject = new CelestialObject(panel.perspectiveLocation);
-						newCelestialObject.movementVector = new Point3D(0, 0, 0).getPointAt(panel.perspectiveAngle, 3);
-						newCelestialObject.mass = 1;
-						newCelestialObject.radius = 40;
-						panel.addControl3D(newCelestialObject);
-						celestialObjects.add(newCelestialObject);
-						listener.gPressed = false;
-					}
-					final double gravitationalConstant = 0.5;
-					for (CelestialObject o : celestialObjects)
-					{
-						Point3D estimatedMovementVector = new Point3D(o.movementVector);
-						double[] radiuses = new double[celestialObjects.size() - 1];
-						int radiusesIndex = 0;
-						for (CelestialObject i : celestialObjects)
-						{
-							if (o != i)
-							{
-								double r = o.location.getDistanceTo(i.location);
-								radiuses[radiusesIndex] = r;
-								radiusesIndex++;
-								double force = (o.mass * i.mass) / (r * r) * gravitationalConstant;
-								estimatedMovementVector = o.movementVector.addPoint(new Point3D().getPointAt(o.location.getAngleTo(i.location), force / o.mass));
-							}
-						}
-						Point3D newLocation = o.location.addPoint(estimatedMovementVector);
-						double changeInEnergy = 0;
-						radiusesIndex = 0;
-						for (CelestialObject i : celestialObjects)
-						{
-							if (o != i)
-							{
-								double rI = radiuses[radiusesIndex];
-								double rF = newLocation.getDistanceTo(i.location);
-								changeInEnergy += (o.mass * i.mass) / rF * gravitationalConstant - (o.mass * i.mass) / rI * gravitationalConstant;
-								radiusesIndex++;
-							}
-						}
-						o.location = newLocation;
-						Angle3D velocityAngle = new Point3D(0,0,0).getAngleTo(estimatedMovementVector);
-						double newKineticEnergy = o.mass / 2 * o.movementVector.getMagnitude() * o.movementVector.getMagnitude() + changeInEnergy;
-						/*
-						if (o == earth)
-						{
-							System.out.println("Movement: " + o.movementVector.getMagnitude());
-							System.out.println("Change In Energy: " + changeInEnergy);
-							System.out.println("New Kinetic Energy: " + newKineticEnergy);
-						}
-						*/
-						if (newKineticEnergy > 0)
-						{
-							double newVelocityMagnitude;
-							newVelocityMagnitude = Math.sqrt(newKineticEnergy * 2 / o.mass);
-							o.movementVector = new Point3D(0, 0, 0).getPointAt(velocityAngle, newVelocityMagnitude);
-						}
-						else
-						{
-							o.movementVector = new Point3D(0,0,0);
-						}
-					}
-					//Screen.repaint();
+					panel.controlVisibility = Math.sin(ticks / 400.0 * Math.PI);
 				}
-		}
-				, 20, 20);
+				if (ticks > 400 && ticks < 800)
+				{
+					instructionalText.setText("Press [esc] For Menu");
+					panel.controlVisibility = Math.sin((ticks - 400) / 400.0 * Math.PI);
+				}
+				if (ticks > 800 && ticks < 1200)
+				{
+					instructionalText.setText("Hit [r] For Rocket Mode");
+					panel.controlVisibility = Math.sin((ticks - 800) / 400.0 * Math.PI);
+				}
+				if (ticks > 1200)
+				{
+					tim2.purge();
+					tim2.cancel();
+				}
+				instructionalText.setLocation(new Point(panel.getWidth() / 2 - instructionalText.getWidth() / 2, panel.getHeight() / 2 - instructionalText.getHeight() / 2));
+				panel.paint = true;
+			}
+		}, 10, 10);
 	}
 
 }
