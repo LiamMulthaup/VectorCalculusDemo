@@ -91,6 +91,7 @@ public class Control
 				if (control.container.getClass() == PageContainer.class)
 				{
 					PageContainer pageContainer = (PageContainer) control.container;
+					System.out.println(pageContainer);
 					if (pageContainer.pageVisible == false)
 					{
 						containerVisible = false;

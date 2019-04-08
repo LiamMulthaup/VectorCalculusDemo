@@ -13,7 +13,7 @@ public class Page extends Control
 	protected class PageContainer extends Container
 	{
 		Page page;
-		Boolean pageVisible;
+		boolean pageVisible;
 		protected PageContainer(Page page)
 		{
 			this.page = page;

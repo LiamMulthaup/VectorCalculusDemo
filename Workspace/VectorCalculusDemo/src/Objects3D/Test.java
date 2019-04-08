@@ -26,7 +26,7 @@ public class Test {
 	{
 		JFrame Screen = new JFrame();
 		Screen.setTitle("Conquer");
-		Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Panel3D panel = new Panel3D();
 		Screen.setSize(1600, 800);
@@ -192,7 +192,20 @@ public class Test {
 		Screen.setVisible(true);
 		Screen.repaint();
 		
-		Page menu = new Page(600, 600, panel, new Point(panel.getWidth() / 2 - 300, panel.getHeight() / 2 - 300));
+		Page menu = new Page(600, 670, panel, new Point(panel.getWidth() / 2 - 300, 20));
+		menu.backgroundVisibility = 0.8;
+		menu.color = new Color(86, 91, 223);
+		Label menuLabel = new Label("Menu", panel, new Point(menu.getWidth() / 2 - 220, 40));
+		menuLabel.setFont(new Font("Monospaced", Font.BOLD, 90));
+		menuLabel.setVisible(true);
+		menuLabel.color = new Color(255, 255, 255);
+		Label resumeLabel = new Label("Resume", panel, new Point(menu.getWidth() / 2 - 220, 140));
+		resumeLabel.setFont(new Font("Rockwell", Font.BOLD, 40));
+		resumeLabel.setVisible(true);
+		resumeLabel.id = "Resume";
+		menu.add(resumeLabel);
+		menu.add(menuLabel);
+		
 		
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
@@ -326,10 +339,11 @@ public class Test {
 						panel.mouseLocked = false;
 						Screen.getContentPane().setCursor(Cursor.getDefaultCursor());
 						listener.exit = false;
-						
+						menu.setVisible(true);
 					}
 					else
 					{
+						menu.setVisible(false);
 						panel.mouseLocked = true;
 						BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 						Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
@@ -372,12 +386,12 @@ public class Test {
 				}
 				if (ticks > 400 && ticks < 800)
 				{
-					instructionalText.setText("Press [esc] For Menu");
+					instructionalText.setText("Hit [r] For Rocket Mode");
 					instructionalText.visibility = Math.sin((ticks - 400) / 400.0 * Math.PI);
 				}
 				if (ticks > 800 && ticks < 1200)
 				{
-					instructionalText.setText("Hit [r] For Rocket Mode");
+					instructionalText.setText("Press [esc] For Menu");
 					instructionalText.visibility = Math.sin((ticks - 800) / 400.0 * Math.PI);
 				}
 				if (ticks > 1200)
