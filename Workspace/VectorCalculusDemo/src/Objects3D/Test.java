@@ -14,168 +14,25 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 
 import ui.Page;
+import ui.RadioButton;
 import ui.Control;
 import ui.ControlHandler;
 import ui.Label;
 
 public class Test {
-	static boolean stars = false;
-	static boolean sun = false;
-	static boolean saturn = false;
 	public static void main(String[] args)
 	{
 		JFrame Screen = new JFrame();
 		Screen.setTitle("Conquer");
-		//Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Panel3D panel = new Panel3D();
 		Screen.setSize(1600, 800);
 		panel.setBackground(new Color(0, 0, 0));
 		Screen.setBackground(new Color(0, 0, 0));
 		panel.setBackground(new Color(0, 0, 0));
-		final int wavelength = 90;
-		final int width = 100;
-		Dot[] dots = new Dot[width * width];//100001];
-		///*
-		for (double k = 0; k < width * width; k+= 1)
-		{
-			double x = k % width * wavelength - width * wavelength / 2 - 20;
-			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
-			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
-			Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
-			a.radius = 40;
-			a.color = new Color((int) (200),(int) (0),(int) (200));
-			panel.addControl3D(a);
-			dots[(int)k] = a;
-		}
-		/*
-		new Timer().scheduleAtFixedRate(new TimerTask()
-		{
-			double radiusTurn = 0;
-			public void run()
-			{
-				radiusTurn-= Math.PI / 300;
-				for (double k = -0; k < width * width; k+= 2)
-				{
-					//dots[(int)k].location = new Point3D(Math.sin(k / 10 + radiusTurn) * k / 10, k - 10000, Math.sin(k / 10 - Math.PI / 2 + radiusTurn) * k / 10);
-					double xOffset = 0;
-					double yOffset = 0;
-					double distance = Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset));
-					//dots[(int)k].location = new Point3D(Math.sin(k / 10) * k, Math.sin(k / 10 - Math.PI / 2) * k, Math.cos(Math.sqrt((Math.sin(k / 10) * k - xOffset) * (Math.sin(k / 10) * k - xOffset) + (Math.sin(k / 10 - Math.PI / 2) * k - yOffset) * (Math.sin(k / 10 - Math.PI / 2) * k - yOffset)) / 400 + radiusTurn) * 800000 / Math.pow(distance, 1) );
-					double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
-					double x = k % width * wavelength - width * wavelength / 2 - 20;
-					double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
-					dots[(int)k].location = new Point3D(new Point3D(x, y + 5000, sineSwitch * Math.sqrt(-500000 * Math.cos(radiusTurn) + x * x + y * y)));
-				}
-				Screen.repaint();
-			}
-		}
-		, 10, 10);
-		*/
-		if (saturn)
-		{
-			for (double k = 0; k <= 2500; k+= 1)
-			{
-				Dot a = new Dot(new Point3D( Math.cos(k / 20) * (int)(k / 40 / Math.PI + 40) * 50, Math.sin(k / 20) * (int)(k / 40 / Math.PI + 40) * 50 + 100000, -5000));
-				a.radius = 200;
-				a.color = new Color((int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100);
-				panel.addControl3D(a);
-			}
-		}
-		if (stars)
-		{
-			for (double k = 0; k <= 25000; k+= 1)
-			{
-				double angleHorizontal = Math.random() * 2 * Math.PI;
-				double angleVertical = Math.random() * 2 * Math.PI;
-				Point3D starLocation = new Point3D(0, 0, 0).getPointAt(new Angle3D(angleHorizontal, angleVertical), 20000000);
-				Dot a = new Dot(starLocation);
-				a.radius = 50000 + Math.random() * 30000;
-				a.color = new Color((int) (Math.random() * 56) + 200, 255,(int) (Math.random() * 56) + 200);
-				panel.addControl3D(a);
-			}
-		}
-		int cubeDotDistance = 20;
-		int cubeDistance = 8000;
-		for (int y = -200; y < 200; y+=cubeDotDistance)
-		{
-			for (int z = -200; z < 200; z+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(1000 + cubeDistance, y, z));
-				a.color = new Color((int) (255),(int) (0),(int) (0));
-				panel.addControl3D(a);
-			}
-		}
 		
-		for (int x = 1000; x < 1400; x+=cubeDotDistance)
-		{
-			for (int z = -200; z < 200; z+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(x + cubeDistance, 200, z));
-				a.color = new Color((int) (0),(int) (255),(int) (0));
-				panel.addControl3D(a);
-			}
-		}
-		
-		for (int x = 1000; x < 1400; x+=cubeDotDistance)
-		{
-			for (int z = -200; z < 200; z+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(x + cubeDistance, - 200, z));
-				a.color = new Color((int) (0),(int) (0),(int) (255));
-				panel.addControl3D(a);
-			}
-		}
-		
-		for (int y = -200; y < 200; y+=cubeDotDistance)
-		{
-			for (int z = -200; z < 200; z+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(1400 + cubeDistance, y, z));
-				a.color = new Color((int) (255),(int) (255),(int) (0));
-				panel.addControl3D(a);
-			}
-		}
-		
-		for (int x = 1000; x < 1400; x+=cubeDotDistance)
-		{
-			for (int y = -200; y < 200; y+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(x + cubeDistance, y, 200));
-				a.color = new Color((int) (255),(int) (0),(int) (255));
-				panel.addControl3D(a);
-			}
-		}
-		
-		for (int x = 1000; x < 1400; x+=cubeDotDistance)
-		{
-			for (int y = -200; y < 200; y+=cubeDotDistance)
-			{
-				Dot a = new Dot(new Point3D(x + cubeDistance, y, - 200));
-				a.color = new Color((int) (255),(int) (118),(int) (0));
-				panel.addControl3D(a);
-			}
-		}
-		if (saturn)
-		{
-			Dot saturn = new Dot(new Point3D(0, 100000, - 5000));
-			saturn.color = new Color(195, 107, 31);
-			saturn.radius = 10000;
-			panel.addControl3D(saturn);
-		}
-		Dot cubeLocator = new Dot(new Point3D(1200 + cubeDistance, 0, 0));
-		cubeLocator.radius = 300;
-		cubeLocator.color = new Color(255, 125, 0);
-		
-		//System.out.println(new Point3D(10, 10, 10).getAngleTo(new Point3D(0, 0, 0)));
-		
-		if (sun)
-		{
-			LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
-			sun.color = new Color(247, 184, 19);
-			sun.radius = 100000;
-			panel.addControl3D(sun);
-		}
+		worldSetUp(panel);
 		
 		KeyEventListener listener = new KeyEventListener();
 		Screen.addKeyListener(listener);
@@ -187,25 +44,74 @@ public class Test {
 		Screen.getContentPane().setCursor(blankCursor);
 		listener.exit = false;
 		
-		panel.addControl3D(cubeLocator);
 		Screen.add(panel);
 		Screen.setVisible(true);
 		Screen.repaint();
-		
-		Page menu = new Page(600, 670, panel, new Point(panel.getWidth() / 2 - 300, 20));
-		menu.backgroundVisibility = 0.8;
-		menu.color = new Color(86, 91, 223);
-		Label menuLabel = new Label("Menu", panel, new Point(menu.getWidth() / 2 - 220, 40));
-		menuLabel.setFont(new Font("Monospaced", Font.BOLD, 90));
-		menuLabel.setVisible(true);
-		menuLabel.color = new Color(255, 255, 255);
-		Label resumeLabel = new Label("Resume", panel, new Point(menu.getWidth() / 2 - 220, 140));
-		resumeLabel.setFont(new Font("Rockwell", Font.BOLD, 40));
-		resumeLabel.setVisible(true);
-		resumeLabel.id = "Resume";
-		menu.add(resumeLabel);
-		menu.add(menuLabel);
-		
+		MenuControlHandler handler = new MenuControlHandler(panel);
+		panel.menu = new Page(600, 670, panel, new Point(panel.getWidth() / 2 - 300, panel.getHeight() / 2 - 335));
+		panel.menu.backgroundVisibility = 0.8;
+		panel.menu.color = new Color(86, 91, 223);
+		panel.menuLabel = new Label("Menu", panel, new Point());
+		panel.menuLabel.setFont(new Font("Rockwell", Font.BOLD, 80));
+		panel.menuLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.menuLabel.getWidth() / 2, 40));
+		panel.menuLabel.setVisible(true);
+		panel.menuLabel.color = new Color(255, 255, 255);
+		panel.setCalculationLabel = new Label("Set Calculation", panel, new Point());
+		panel.setCalculationLabel.setFont(new Font("Rockwell", Font.PLAIN, 30));
+		panel.setCalculationLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.setCalculationLabel.getWidth() / 2, 130));
+		panel.setCalculationLabel.color = new Color(200,200,200);
+		panel.setCalculationLabel.setVisible(true);
+		panel.setCalculationLabel.id = "Open Calculation Window";
+		panel.setCalculationLabel.controlHandler = handler;
+		panel.specialSettingsLabel = new Label("Special Settings", panel, new Point());
+		panel.specialSettingsLabel.setFont(new Font("Rockwell", Font.PLAIN, 30));
+		panel.specialSettingsLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.specialSettingsLabel.getWidth() / 2, 170));
+		panel.specialSettingsLabel.color = new Color(200,200,200);
+		panel.specialSettingsLabel.setVisible(true);
+		panel.specialSettingsLabel.id = "Open Special Settings Window";
+		panel.specialSettingsLabel.controlHandler = handler;
+		panel.menu.add(panel.specialSettingsLabel);
+		panel.menu.add(panel.setCalculationLabel);
+		panel.menu.add(panel.menuLabel);
+		panel.starsRadioButton = new RadioButton("Stars", panel, new Point());
+		panel.starsRadioButton.setFont(new Font("Rockwell", Font.PLAIN, 30));
+		panel.starsRadioButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.starsRadioButton.getWidth() / 2, 130));
+		panel.starsRadioButton.color = new Color(0,0,0);
+		panel.starsRadioButton.opaqueBubble = false;
+		panel.starsRadioButton.setVisible(false);
+		panel.starsRadioButton.singleChoice = false;
+		panel.starsRadioButton.id = "Stars";
+		panel.starsRadioButton.controlHandler = handler;
+		panel.menu.add(panel.starsRadioButton);
+		panel.sunRadioButton = new RadioButton("Sun", panel, new Point());
+		panel.sunRadioButton.setFont(new Font("Rockwell", Font.PLAIN, 30));
+		panel.sunRadioButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.starsRadioButton.getWidth() / 2, 170));
+		panel.sunRadioButton.color = new Color(0,0,0);
+		panel.sunRadioButton.opaqueBubble = false;
+		panel.sunRadioButton.setVisible(false);
+		panel.sunRadioButton.selected = true;
+		panel.sunRadioButton.singleChoice = false;
+		panel.sunRadioButton.id = "Sun";
+		panel.sunRadioButton.controlHandler = handler;
+		panel.menu.add(panel.sunRadioButton);
+		panel.saturnRadioButton = new RadioButton("Saturn", panel, new Point());
+		panel.saturnRadioButton.setFont(new Font("Rockwell", Font.PLAIN, 30));
+		panel.saturnRadioButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.starsRadioButton.getWidth() / 2, 210));
+		panel.saturnRadioButton.color = new Color(0,0,0);
+		panel.saturnRadioButton.opaqueBubble = false;
+		panel.saturnRadioButton.setVisible(false);
+		panel.saturnRadioButton.singleChoice = false;
+		panel.saturnRadioButton.id = "Saturn";
+		panel.saturnRadioButton.controlHandler = handler;
+		panel.menu.add(panel.saturnRadioButton);
+		panel.backLabel = new Label("back", panel, new Point());
+		panel.backLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
+		panel.backLabel.setLocation(new Point(panel.menu.getWidth() - panel.backLabel.getWidth() - 20, panel.menu.getHeight() - panel.backLabel.getHeight() - 20));
+		panel.backLabel.color = new Color(255,255,255);
+		panel.backLabel.setVisible(false);
+		panel.backLabel.id = "back";
+		panel.backLabel.controlHandler = handler;
+		panel.menu.add(panel.backLabel);
 		
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
@@ -339,17 +245,19 @@ public class Test {
 						panel.mouseLocked = false;
 						Screen.getContentPane().setCursor(Cursor.getDefaultCursor());
 						listener.exit = false;
-						menu.setVisible(true);
+						panel.menu.setVisible(true);
+						paint = true;
 					}
 					else
 					{
-						menu.setVisible(false);
+						panel.menu.setVisible(false);
 						panel.mouseLocked = true;
 						BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 						Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
 						    cursorImg, new Point(0, 0), "blank cursor");
 						Screen.getContentPane().setCursor(blankCursor);
 						listener.exit = false;
+						paint = true;
 					}
 				}
 				movementVector = movementVector.addPoint(addVector);
@@ -404,5 +312,126 @@ public class Test {
 			}
 		}, 10, 10);
 	}
-
+	public static void worldSetUp(Panel3D panel)
+	{
+		panel.disposeAll();
+		final int wavelength = 120;
+		final int width = 80;
+		Dot[] dots = new Dot[width * width];//100001];
+		///*
+		for (double k = 0; k < width * width; k+= 1)
+		{
+			double x = k % width * wavelength - width * wavelength / 2 - 20;
+			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
+			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
+			Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
+			a.radius = 40;
+			a.color = new Color((int) (200),(int) (0),(int) (200));
+			panel.addControl3D(a);
+			dots[(int)k] = a;
+		}
+		if (panel.saturn)
+		{
+			for (double k = 0; k <= 2500; k+= 1)
+			{
+				Dot a = new Dot(new Point3D( Math.cos(k / 20) * (int)(k / 40 / Math.PI + 40) * 50, Math.sin(k / 20) * (int)(k / 40 / Math.PI + 40) * 50 + 100000, -5000));
+				a.radius = 200;
+				a.color = new Color((int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100,(int) (Math.random() * 60) + 100);
+				panel.addControl3D(a);
+			}
+		}
+		if (panel.stars)
+		{
+			for (double k = 0; k <= 25000; k+= 1)
+			{
+				double angleHorizontal = Math.random() * 2 * Math.PI;
+				double angleVertical = Math.random() * 2 * Math.PI;
+				Point3D starLocation = new Point3D(0, 0, 0).getPointAt(new Angle3D(angleHorizontal, angleVertical), 20000000);
+				Dot a = new Dot(starLocation);
+				a.radius = 50000 + Math.random() * 30000;
+				a.color = new Color((int) (Math.random() * 56) + 200, 255,(int) (Math.random() * 56) + 200);
+				panel.addControl3D(a);
+			}
+		}
+		int cubeDotDistance = 20;
+		int cubeDistance = 8000;
+		for (int y = -200; y < 200; y+=cubeDotDistance)
+		{
+			for (int z = -200; z < 200; z+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(1000 + cubeDistance, y, z));
+				a.color = new Color((int) (255),(int) (0),(int) (0));
+				panel.addControl3D(a);
+			}
+		}
+		
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
+		{
+			for (int z = -200; z < 200; z+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(x + cubeDistance, 200, z));
+				a.color = new Color((int) (0),(int) (255),(int) (0));
+				panel.addControl3D(a);
+			}
+		}
+		
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
+		{
+			for (int z = -200; z < 200; z+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(x + cubeDistance, - 200, z));
+				a.color = new Color((int) (0),(int) (0),(int) (255));
+				panel.addControl3D(a);
+			}
+		}
+		
+		for (int y = -200; y < 200; y+=cubeDotDistance)
+		{
+			for (int z = -200; z < 200; z+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(1400 + cubeDistance, y, z));
+				a.color = new Color((int) (255),(int) (255),(int) (0));
+				panel.addControl3D(a);
+			}
+		}
+		
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
+		{
+			for (int y = -200; y < 200; y+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(x + cubeDistance, y, 200));
+				a.color = new Color((int) (255),(int) (0),(int) (255));
+				panel.addControl3D(a);
+			}
+		}
+		
+		for (int x = 1000; x < 1400; x+=cubeDotDistance)
+		{
+			for (int y = -200; y < 200; y+=cubeDotDistance)
+			{
+				Dot a = new Dot(new Point3D(x + cubeDistance, y, - 200));
+				a.color = new Color((int) (255),(int) (118),(int) (0));
+				panel.addControl3D(a);
+			}
+		}
+		if (panel.saturn)
+		{
+			Dot saturn = new Dot(new Point3D(0, 100000, - 5000));
+			saturn.color = new Color(195, 107, 31);
+			saturn.radius = 10000;
+			panel.addControl3D(saturn);
+		}
+		Dot cubeLocator = new Dot(new Point3D(1200 + cubeDistance, 0, 0));
+		cubeLocator.radius = 300;
+		cubeLocator.color = new Color(255, 125, 0);
+		panel.addControl3D(cubeLocator);
+		
+		if (panel.sun)
+		{
+			LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
+			sun.color = new Color(247, 184, 19);
+			sun.radius = 100000;
+			panel.addControl3D(sun);
+		}
+	}
 }

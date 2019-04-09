@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ui.Control;
+import ui.Label;
+import ui.Page;
+import ui.RadioButton;
 
 public class Panel3D extends JPanel implements MouseMotionListener
 {
@@ -44,10 +47,32 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	boolean mouseLocked = false;
 	
 	boolean paint = false;
+	boolean stars = false;
+	boolean sun = true;
+	boolean saturn = false;
+	
+	Page menu;
+	Label setCalculationLabel;
+	Label menuLabel;
+	Label specialSettingsLabel;
+	Label backLabel;
+	RadioButton starsRadioButton;
+	RadioButton sunRadioButton;
+	RadioButton saturnRadioButton;
 	
 	public Panel3D()
 	{
 		this.addMouseMotionListener(this);
+	}
+	public boolean dispose(Control3D control)
+	{
+		controlDistances.remove(controls.indexOf(control));
+		return controls.remove(control);
+	}
+	public void disposeAll()
+	{
+		controls.clear();
+		controlDistances.clear();
 	}
 	public void paintComponent(Graphics g)
 	{
@@ -102,6 +127,7 @@ public class Panel3D extends JPanel implements MouseMotionListener
 				d.container.tempIndex = containers.size();
 			}
 		}
+		menu.setLocation(new Point(getWidth() / 2 - 300, getHeight() / 2 - 335));
 		Control.paintControls(this, g);
 	}
 	public void sortControls()
@@ -220,6 +246,7 @@ public class Panel3D extends JPanel implements MouseMotionListener
 		{
 			mX = e.getX();
 			mY = e.getY();
+			Control.controlClickEvents(panel, mX, mY, true);
 			mousePressed = true;
 		}
 		public void mouseReleased(MouseEvent e)
@@ -227,7 +254,7 @@ public class Panel3D extends JPanel implements MouseMotionListener
 			mousePressed = false;
 			if (mX == e.getX() && mY == e.getY() && !mouseLocked)
 			{
-				Control.controlClickEvents(panel, mX, mY, true);
+				//
 			}
 		}
 	}

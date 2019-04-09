@@ -16,6 +16,7 @@ public class RadioButton extends Label
 	public boolean opaqueBubble = true;
 	public Color bubbleColor = new Color(255, 255, 255);
 	public boolean choiceLocked = false;
+	public boolean singleChoice = true;
 	public RadioButton(String text, JPanel panel, Point location) 
 	{
 		super(text, panel, location);
@@ -83,7 +84,7 @@ public class RadioButton extends Label
 		}
 		else
 		{
-			if (container != null)
+			if (container != null && singleChoice)
 			{
 				for (int i = 0; i < container.controlGroup.size(); i++)
 				{
