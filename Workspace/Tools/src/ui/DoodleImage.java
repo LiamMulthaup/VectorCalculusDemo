@@ -18,8 +18,11 @@ public class DoodleImage extends ImageBox
 	}
 	public void paint(Graphics g)
 	{
-		super.paint(g);
-		g.drawImage(doodleimg, location.x, location.y, width, height, null);
+		if (visible)
+		{
+			super.paint(g);
+			g.drawImage(doodleimg, location.x, location.y, width, height, null);
+		}
 	}
 	public Graphics createGraphics()
 	{

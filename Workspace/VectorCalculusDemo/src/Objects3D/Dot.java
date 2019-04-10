@@ -9,6 +9,7 @@ public class Dot extends Control3D
 	double radius = 10;
 	Color color = Color.white;
 	MultiDotObject container;
+	boolean observatorium = false;
 	public Dot(Point3D location) 
 	{
 		super(location);
@@ -142,11 +143,11 @@ public class Dot extends Control3D
 				
 				if (drawingVisible && drawNormally)
 				{
-					panel.addDotDrawing(new DotDrawing(new Point((int)xDrawing, (int)yDrawing), size, color, distance, container, this));
+					panel.addDotDrawing(new DotDrawing(new Point((int)xDrawing, (int)yDrawing), size, color, distance, container, this , observatorium));
 				}
 				if (altDrawingVisible && !drawNormally)
 				{
-					panel.addDotDrawing(new DotDrawing(new Point((int)altXDrawing, (int)altYDrawing), size, color, distance, container, this));
+					panel.addDotDrawing(new DotDrawing(new Point((int)altXDrawing, (int)altYDrawing), size, color, distance, container, this, observatorium));
 				}
 				
 			}

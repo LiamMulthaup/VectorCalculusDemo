@@ -2,6 +2,7 @@ package Objects3D;
 
 import java.awt.AWTException;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -18,10 +19,12 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ui.Button;
 import ui.Control;
 import ui.Label;
 import ui.Page;
 import ui.RadioButton;
+import ui.TextBox;
 
 public class Panel3D extends JPanel implements MouseMotionListener
 {
@@ -56,9 +59,12 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	Label menuLabel;
 	Label specialSettingsLabel;
 	Label backLabel;
+	Label zLabel, rangeLabel, xMinLabel, xMaxLabel, yMinLabel, yMaxLabel;
 	RadioButton starsRadioButton;
 	RadioButton sunRadioButton;
 	RadioButton saturnRadioButton;
+	TextBox zTextBox, xMinTextBox, xMaxTextBox, yMinTextBox, yMaxTextBox;
+	Button calculateButton;
 	
 	public Panel3D()
 	{
@@ -76,6 +82,8 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	}
 	public void paintComponent(Graphics g)
 	{
+		g.setColor(new Color(0,0,0));
+		g.fillRect(0, 0, getWidth(), getHeight());
 		Point3D center = new Point3D(0,0,0).getPointAt(perspectiveAngle, FOV);
 		Point3D topCenter = center.getPointAt(new Angle3D(perspectiveAngle.horizontal, perspectiveAngle.vertical + Math.PI / 2.0), getHeight() / 2.0);
 		Point3D topLeft = topCenter.getPointAt(new Angle3D(perspectiveAngle.horizontal + Math.PI / 2.0, 0), getWidth() / 2.0);

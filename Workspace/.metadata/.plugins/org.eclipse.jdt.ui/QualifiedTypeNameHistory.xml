@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="ui.Page"/>
-<fullyQualifiedTypeName name="ui.ControlHandler"/>
 <fullyQualifiedTypeName name="ui.Label"/>
-<fullyQualifiedTypeName name="java.awt.Font"/>
 <fullyQualifiedTypeName name="java.awt.event.MouseAdapter"/>
 <fullyQualifiedTypeName name="java.util.ResourceBundle.Control"/>
 <fullyQualifiedTypeName name="Objects3D.Panel3D.PanelListener"/>
 <fullyQualifiedTypeName name="ui.Control"/>
+<fullyQualifiedTypeName name="ui.Page"/>
+<fullyQualifiedTypeName name="ui.ControlHandler"/>
+<fullyQualifiedTypeName name="ui.RadioButton"/>
+<fullyQualifiedTypeName name="java.lang.String"/>
+<fullyQualifiedTypeName name="java.awt.Font"/>
 </qualifiedTypeNameHistroy>

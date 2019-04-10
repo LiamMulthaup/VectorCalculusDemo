@@ -74,13 +74,16 @@ public class ListBox extends Control
 	}
 	public void paint(Graphics g)
 	{
-		super.paint(g);
-		g.drawImage((Image)listBoxImage, location.x, location.y, null);
-		g.setFont(font);
-		if (items.size() * g.getFontMetrics().getHeight() > height)
+		if (visible)
 		{
-			scrollBar.setVisible(true);
-			scrollBar.paint(g);
+			super.paint(g);
+			g.drawImage((Image)listBoxImage, location.x, location.y, null);
+			g.setFont(font);
+			if (items.size() * g.getFontMetrics().getHeight() > height)
+			{
+				scrollBar.setVisible(true);
+				scrollBar.paint(g);
+			}
 		}
 		g = null;
 	}

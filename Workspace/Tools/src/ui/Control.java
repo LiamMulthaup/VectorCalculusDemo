@@ -67,7 +67,6 @@ public class Control
 	}
 	public void paint(Graphics g)
 	{
-
 		((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 				(float) (visibility)));
 		if (antialiasing)

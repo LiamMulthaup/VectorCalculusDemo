@@ -11,7 +11,30 @@ public class MenuControlHandler extends ControlHandler
 	}
 	public void clickEvent(String id)
 	{
-		if (id.equals("Open Special Settings Window"))
+		if (id.equals("Calculate"))
+		{
+			
+		}
+		else if (id.equals("Open Calculation Window"))
+		{
+			panel.setCalculationLabel.setVisible(false);
+			panel.specialSettingsLabel.setVisible(false);
+			panel.zLabel.setVisible(true);
+			panel.zTextBox.setVisible(true);
+			panel.backLabel.setVisible(true);
+			panel.calculateButton.setVisible(true);
+			panel.xMaxTextBox.setVisible(true);
+			panel.xMinTextBox.setVisible(true);
+			panel.yMaxTextBox.setVisible(true);
+			panel.yMinTextBox.setVisible(true);
+			panel.xMaxLabel.setVisible(true);
+			panel.xMinLabel.setVisible(true);
+			panel.yMaxLabel.setVisible(true);
+			panel.yMinLabel.setVisible(true);
+			panel.rangeLabel.setVisible(true);
+			panel.paint = true;
+		}
+		else if (id.equals("Open Special Settings Window"))
 		{
 			panel.setCalculationLabel.setVisible(false);
 			panel.specialSettingsLabel.setVisible(false);
@@ -30,8 +53,23 @@ public class MenuControlHandler extends ControlHandler
 				panel.saturnRadioButton.setVisible(false);
 				panel.starsRadioButton.setVisible(false);
 				panel.sunRadioButton.setVisible(false);
-				panel.backLabel.setVisible(false);
 			}
+			else if (panel.zLabel.isVisible())
+			{
+				panel.zLabel.setVisible(false);
+				panel.zTextBox.setVisible(false);
+				panel.calculateButton.setVisible(false);
+				panel.xMaxTextBox.setVisible(false);
+				panel.xMinTextBox.setVisible(false);
+				panel.yMaxTextBox.setVisible(false);
+				panel.yMinTextBox.setVisible(false);
+				panel.xMaxLabel.setVisible(false);
+				panel.xMinLabel.setVisible(false);
+				panel.yMaxLabel.setVisible(false);
+				panel.yMinLabel.setVisible(false);
+				panel.rangeLabel.setVisible(false);
+			}
+			panel.backLabel.setVisible(false);
 			panel.paint = true;
 		}
 		else if (id.equals("Stars"))

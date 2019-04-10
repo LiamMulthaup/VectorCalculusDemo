@@ -28,14 +28,7 @@ public class CircleButton extends Label
 	{
 		if (visible)
 		{
-			if (antialiasing)
-			{
-				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			}
-			else
-			{
-				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
-			}
+			super.paint(g);
 			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
 					(float) (backgroundVisibility * visibility)));
 			g.setColor(backgroundColor);

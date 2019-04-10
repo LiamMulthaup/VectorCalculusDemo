@@ -35,6 +35,8 @@ public class RadioButton extends Label
 	{
 		if (visible)
 		{
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+					(float) (visibility)));
 			if (antialiasing)
 			{
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

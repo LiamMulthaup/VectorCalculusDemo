@@ -16,7 +16,11 @@ public class Doodle extends Control
 	}
 	public void paint(Graphics g)
 	{
-		g.drawImage(doodle, location.x, location.y, width, height, null);
+		if (visible)
+		{
+			super.paint(g);
+			g.drawImage(doodle, location.x, location.y, width, height, null);	
+		}
 	}
 	public Graphics createGraphics()
 	{

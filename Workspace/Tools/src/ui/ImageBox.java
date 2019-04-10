@@ -16,8 +16,11 @@ public class ImageBox extends Control
 	}
 	public void paint(Graphics g)
 	{
-		super.paint(g);
-		g.drawImage(image, location.x, location.y, width, height, null);
+		if (visible)
+		{
+			super.paint(g);
+			g.drawImage(image, location.x, location.y, width, height, null);
+		}
 	}
 	public Image getImage()
 	{

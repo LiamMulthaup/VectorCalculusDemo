@@ -15,6 +15,8 @@ import javax.swing.JFrame;
 
 import ui.Page;
 import ui.RadioButton;
+import ui.TextBox;
+import ui.Button;
 import ui.Control;
 import ui.ControlHandler;
 import ui.Label;
@@ -112,7 +114,83 @@ public class Test {
 		panel.backLabel.id = "back";
 		panel.backLabel.controlHandler = handler;
 		panel.menu.add(panel.backLabel);
-		
+		panel.zLabel = new Label("z =", panel, new Point(120,140));
+		panel.zLabel.setFont(new Font("Arial", Font.PLAIN, 25));
+		panel.zLabel.color = new Color(255,255,255);
+		panel.zLabel.setVisible(false);
+		panel.menu.add(panel.zLabel);
+		panel.zTextBox = new TextBox(300, 30, panel, new Point(160, 137), Screen);
+		panel.zTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.zTextBox.setText("Hello");
+		panel.zTextBox.setVisible(false);
+		panel.menu.add(panel.zTextBox);
+		panel.calculateButton = new Button(" Calculate", 93, 30, panel, new Point());
+		panel.calculateButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.calculateButton.getWidth() / 2, 400));
+		panel.calculateButton.antialiasing = true;
+		panel.calculateButton.backgroundVisibility = 0;
+		panel.calculateButton.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.calculateButton.color = new Color(255,255,255);
+		panel.calculateButton.borderColor = new Color(255,255,255);
+		panel.calculateButton.rounded = true;
+		panel.calculateButton.id = "Calculate";
+		panel.calculateButton.controlHandler = handler;
+		panel.menu.add(panel.calculateButton);
+		panel.calculateButton.roundedHeight = 30;
+		panel.calculateButton.roundedWidth = 30;
+		panel.rangeLabel = new Label("Range:", panel, new Point());
+		panel.rangeLabel.setFont(new Font("Arial", Font.BOLD, 30));
+		panel.rangeLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.rangeLabel.getWidth() / 2, 200));
+		panel.rangeLabel.color = new Color(255, 255, 255);
+		panel.rangeLabel.setVisible(false);
+		panel.menu.add(panel.rangeLabel);
+		panel.xMinLabel = new Label("xMin:", panel, new Point());
+		panel.xMinLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.xMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 80 - panel.xMinLabel.getWidth(), 250));
+		panel.xMinLabel.color = new Color(255, 255, 255);
+		panel.xMinLabel.setVisible(false);
+		panel.menu.add(panel.xMinLabel);
+		panel.xMaxLabel = new Label("xMax:", panel, new Point());
+		panel.xMaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.xMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 80 - panel.xMaxLabel.getWidth(), 280));
+		panel.xMaxLabel.color = new Color(255, 255, 255);
+		panel.xMaxLabel.setVisible(false);
+		panel.menu.add(panel.xMaxLabel);
+		panel.yMinLabel = new Label("yMin:", panel, new Point());
+		panel.yMinLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.yMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.yMinLabel.getWidth(), 250));
+		panel.yMinLabel.color = new Color(255, 255, 255);
+		panel.yMinLabel.setVisible(false);
+		panel.menu.add(panel.yMinLabel);
+		panel.yMaxLabel = new Label("yMax:", panel, new Point());
+		panel.yMaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.yMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.yMaxLabel.getWidth(), 280));
+		panel.yMaxLabel.color = new Color(255, 255, 255);
+		panel.yMaxLabel.setVisible(false);
+		panel.menu.add(panel.yMaxLabel);
+		panel.xMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 75, 245), Screen);
+		panel.xMinTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.xMinTextBox.setText("1");
+		panel.xMinTextBox.acceptsLetters = false;
+		panel.xMinTextBox.setVisible(false);
+		panel.menu.add(panel.xMinTextBox);
+		panel.xMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 75, 275), Screen);
+		panel.xMaxTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.xMaxTextBox.setText("-1");
+		panel.xMaxTextBox.acceptsLetters = false;
+		panel.xMaxTextBox.setVisible(false);
+		panel.menu.add(panel.xMaxTextBox);
+		panel.yMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 245), Screen);
+		panel.yMinTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.yMinTextBox.setText("1");
+		panel.yMinTextBox.acceptsLetters = false;
+		panel.yMinTextBox.setVisible(false);
+		panel.menu.add(panel.yMinTextBox);
+		panel.yMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 275), Screen);
+		panel.yMaxTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.yMaxTextBox.setText("-1");
+		panel.yMaxTextBox.acceptsLetters = false;
+		panel.yMaxTextBox.setVisible(false);
+		panel.menu.add(panel.yMaxTextBox);
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
 		{
@@ -140,15 +218,18 @@ public class Test {
 				}
 				boolean paint = panel.paint;
 				Point3D addVector = new Point3D();
-				Point3D vectorWorking;
-				if (rocketMode == true)
+				Point3D vectorWorking = new Point3D();
+				if (panel.mouseLocked)
 				{
-					vectorWorking = addVector;
-					paint = true;
-				}
-				else
-				{
-					vectorWorking = panel.perspectiveLocation;
+					if (rocketMode == true)
+					{
+						vectorWorking = addVector;
+						paint = true;
+					}
+					else
+					{
+						vectorWorking = panel.perspectiveLocation;
+					}
 				}
 				if (listener.wPressed)
 				{
@@ -268,7 +349,7 @@ public class Test {
 				}
 				if (paint)
 				{
-					Screen.repaint();
+					panel.repaint();
 					panel.paint = false;
 				}
 			}
@@ -424,6 +505,7 @@ public class Test {
 		Dot cubeLocator = new Dot(new Point3D(1200 + cubeDistance, 0, 0));
 		cubeLocator.radius = 300;
 		cubeLocator.color = new Color(255, 125, 0);
+		cubeLocator.observatorium = true;
 		panel.addControl3D(cubeLocator);
 		
 		if (panel.sun)

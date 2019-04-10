@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
@@ -17,6 +18,10 @@ public class Button extends Label
 	public Color borderColor = new Color(0, 0, 0);
 	public Color backgroundColor = new Color(255, 255, 255);
 	protected BufferedImage textPlane;
+	public boolean rounded = false;
+	public int roundedHeight = 5, roundedWidth = 5;
+	public int borderStroke = 3;
+	public int backgroundVisibility = 1;
 	public Button(String text, int width, int height, JPanel panel, Point location) 
 	{
 		super(text, panel, location);
@@ -32,6 +37,8 @@ public class Button extends Label
 	{
 		if (visible)
 		{
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+					(float) (visibility)));
 			if (antialiasing)
 			{
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -41,10 +48,30 @@ public class Button extends Label
 				((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 			}
 			g.setColor(backgroundColor);
-			g.fillRect(location.x, location.y, width, height);
-			((Graphics2D) g).setStroke(new BasicStroke(3));
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+					(float) (visibility * backgroundVisibility)));
+			if (rounded)
+			{
+
+				g.fillRoundRect(location.x, location.y, width, height, roundedWidth, roundedHeight);
+			}
+			else
+			{
+
+				g.fillRect(location.x, location.y, width, height);
+			}
+			((Graphics2D) g).setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
+					(float) (visibility)));
+			((Graphics2D) g).setStroke(new BasicStroke(borderStroke));
 			g.setColor(borderColor);
-			g.drawRect(location.x, location.y, width, height);
+			if (rounded)
+			{
+				g.drawRoundRect(location.x, location.y, width, height, roundedWidth, roundedHeight);
+			}
+			else
+			{
+				g.drawRect(location.x, location.y, width, height);
+			}
 			((Graphics2D) g).setStroke(new BasicStroke(1));
 			super.paint(g);
 			g = null;

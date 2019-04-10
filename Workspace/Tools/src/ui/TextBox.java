@@ -145,5 +145,6 @@ public class TextBox extends Control
 		super.removeFocus();
 		tim.cancel();
 		textLine = false;
+		panel.repaint();
 	}
 }
