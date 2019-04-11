@@ -22,11 +22,14 @@ import ui.ControlHandler;
 import ui.Label;
 
 public class Test {
+	final static int wavelength = 120;
+	final static int width = 80;
+	static public Dot[] dots = new Dot[width * width];
 	public static void main(String[] args)
 	{
 		JFrame Screen = new JFrame();
 		Screen.setTitle("Conquer");
-		Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Panel3D panel = new Panel3D();
 		Screen.setSize(1600, 800);
@@ -393,13 +396,8 @@ public class Test {
 			}
 		}, 10, 10);
 	}
-	public static void worldSetUp(Panel3D panel)
+	public static void graphEquation(Panel3D panel)
 	{
-		panel.disposeAll();
-		final int wavelength = 120;
-		final int width = 80;
-		Dot[] dots = new Dot[width * width];//100001];
-		///*
 		for (double k = 0; k < width * width; k+= 1)
 		{
 			double x = k % width * wavelength - width * wavelength / 2 - 20;
@@ -411,6 +409,22 @@ public class Test {
 			panel.addControl3D(a);
 			dots[(int)k] = a;
 		}
+	}
+	public static void worldSetUp(Panel3D panel)
+	{
+		panel.disposeAll();
+		try {
+			Expression e = new Expression("(a * b)");
+			for (Value v : e.subValues)
+			{
+				System.out.println(v.value);
+			}
+			System.out.println(e.solve());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		graphEquation(panel);
 		if (panel.saturn)
 		{
 			for (double k = 0; k <= 2500; k+= 1)
