@@ -13,6 +13,9 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 
+import math.Expression;
+import math.Value;
+import math.Variable;
 import ui.Page;
 import ui.RadioButton;
 import ui.TextBox;
@@ -24,6 +27,10 @@ import ui.Label;
 public class Test {
 	final static int wavelength = 120;
 	final static int width = 80;
+	public static double xMin = 0;
+	public static double xMax = 0;
+	public static double yMin = 0;
+	public static double yMax = 0;
 	static public Dot[] dots = new Dot[width * width];
 	public static void main(String[] args)
 	{
@@ -414,11 +421,8 @@ public class Test {
 	{
 		panel.disposeAll();
 		try {
+			Variable.variableValue.a.value = 10;
 			Expression e = new Expression("(a * b)");
-			for (Value v : e.subValues)
-			{
-				System.out.println(v.value);
-			}
 			System.out.println(e.solve());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

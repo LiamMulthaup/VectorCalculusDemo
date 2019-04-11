@@ -1,4 +1,4 @@
-package Objects3D;
+package math;
 
 public class Function extends Expression
 {

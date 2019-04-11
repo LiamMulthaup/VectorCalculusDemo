@@ -1,8 +1,8 @@
-package Objects3D;
+package math;
 
 public class Variable extends Value
 {
-	static enum variableValue
+	public static enum variableValue
 	{
 		a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, y, x, z;
 		public double value = 0;
