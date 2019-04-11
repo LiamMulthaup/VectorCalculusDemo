@@ -40,6 +40,25 @@ public class Point3D
 	{
 		return Math.sqrt((x - point.x) * (x - point.x) + (y - point.y) * (y - point.y) + (z - point.z) * (z - point.z));
 	}
+	public boolean equals(Object point)
+	{
+		if (point.getClass() == Point3D.class)
+		{
+			Point3D p = (Point3D)point;
+			if(x == p.x && y == p.y && z == p.z)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
+	}
 	public Point3D addPoint(Point3D point)
 	{
 		return new Point3D(x + point.x, y + point.y, z + point.z);

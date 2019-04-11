@@ -17,5 +17,4 @@ INDEX VERSION 1.131+C:\Users\Liam\OneDrive\Documents\GitHub\VectorCalculusDemo\W
 1394848873.index
 1110334383.index
 2707737922.index
-2269590546.index
 3688233713.index

@@ -59,11 +59,11 @@ public class Panel3D extends JPanel implements MouseMotionListener
 	Label menuLabel;
 	Label specialSettingsLabel;
 	Label backLabel;
-	Label zLabel, rangeLabel, xMinLabel, xMaxLabel, yMinLabel, yMaxLabel;
+	Label zLabel, rangeLabel, xMinLabel, xMaxLabel, yMinLabel, yMaxLabel, zMinLabel, zMaxLabel;
 	RadioButton starsRadioButton;
 	RadioButton sunRadioButton;
 	RadioButton saturnRadioButton;
-	TextBox zTextBox, xMinTextBox, xMaxTextBox, yMinTextBox, yMaxTextBox;
+	TextBox zTextBox, xMinTextBox, xMaxTextBox, yMinTextBox, yMaxTextBox, zMinTextBox, zMaxTextBox;
 	Button calculateButton;
 	
 	public Panel3D()

@@ -24,11 +24,12 @@ public class Expression extends Value
 		this.value = reducedValue;
 		if (this.value.length() == 0)
 		{
+			System.out.println("Error a");
 			throw new Exception();
 		}
 		parse();
 	}
-	ArrayList<Value> subValues = new ArrayList<Value>();
+	public ArrayList<Value> subValues = new ArrayList<Value>();
 	
 	private boolean isForwardBracket(char c)
 	{
@@ -107,10 +108,10 @@ public class Expression extends Value
 							}
 						}
 					}
-					else if (code >= 49 && code <= 57)
+					else if (code >= 48 && code <= 57)
 					{
 						int k;
-						for (k = i; k < value.length() && ((value.charAt(k) >= 49 && value.charAt(k) <= 57)|| value.charAt(k) == '.'); k++);
+						for (k = i; k < value.length() && ((value.charAt(k) >= 48 && value.charAt(k) <= 57)|| value.charAt(k) == '.'); k++);
 						if (k == value.length() - 1){k = value.length();}
 						double constant = Double.parseDouble(value.substring(i,k));
 						i = k - 1;
@@ -134,6 +135,7 @@ public class Expression extends Value
 							}
 							else
 							{
+								System.out.println("Error b");
 								throw new Exception();
 							}
 						}
@@ -143,11 +145,13 @@ public class Expression extends Value
 						}
 						else
 						{
+							System.out.println("Error c");
 							throw new Exception();
 						}
 					}
 					else
 					{
+						System.out.println("Error d");
 						throw new Exception();
 					}
 				}
@@ -162,6 +166,7 @@ public class Expression extends Value
 				}
 				if (skip < 0)
 				{
+					System.out.println("Error e");
 					throw new Exception();
 				}
 			}
@@ -181,6 +186,7 @@ public class Expression extends Value
 		}
 		if (skip != 0)
 		{
+			System.out.println("Error f");
 			throw new Exception();
 		}
 	}
@@ -240,7 +246,7 @@ public class Expression extends Value
 					subValues.add(i - 1, new Constant("" + d));
 					i--;
 				}
-				if (o.value.equals("/"))
+				else if (o.value.equals("/"))
 				{
 					double d = subValues.get(i - 1).solve() / subValues.get(i + 1).solve();
 					subValues.remove(i+1);
@@ -282,7 +288,7 @@ public class Expression extends Value
 					subValues.add(i - 1, new Constant("" + d));
 					i--;
 				}
-				if (o.value.equals("-"))
+				else if (o.value.equals("-"))
 				{
 					double d = subValues.get(i - 1).solve() - subValues.get(i + 1).solve();
 					subValues.remove(i+1);

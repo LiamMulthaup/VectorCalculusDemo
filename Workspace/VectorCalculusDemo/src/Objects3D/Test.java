@@ -27,16 +27,14 @@ import ui.Label;
 public class Test {
 	final static int wavelength = 120;
 	final static int width = 80;
-	public static double xMin = 0;
-	public static double xMax = 0;
-	public static double yMin = 0;
-	public static double yMax = 0;
+	public static double xMin = -5, xMax = 5, yMin = -5, yMax = 5, zMin = -5, zMax = 5;
+	public static Expression e;
 	static public Dot[] dots = new Dot[width * width];
 	public static void main(String[] args)
 	{
 		JFrame Screen = new JFrame();
 		Screen.setTitle("Conquer");
-		//Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		Screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		Screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Panel3D panel = new Panel3D();
 		Screen.setSize(1600, 800);
@@ -131,11 +129,11 @@ public class Test {
 		panel.menu.add(panel.zLabel);
 		panel.zTextBox = new TextBox(300, 30, panel, new Point(160, 137), Screen);
 		panel.zTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.zTextBox.setText("Hello");
+		panel.zTextBox.setText("(cosx)^2 * (cosy)^2");
 		panel.zTextBox.setVisible(false);
 		panel.menu.add(panel.zTextBox);
 		panel.calculateButton = new Button(" Calculate", 93, 30, panel, new Point());
-		panel.calculateButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.calculateButton.getWidth() / 2, 400));
+		panel.calculateButton.setLocation(new Point(panel.menu.getWidth() / 2 - panel.calculateButton.getWidth() / 2, 350));
 		panel.calculateButton.antialiasing = true;
 		panel.calculateButton.backgroundVisibility = 0;
 		panel.calculateButton.setFont(new Font("Arial", Font.PLAIN, 20));
@@ -155,52 +153,76 @@ public class Test {
 		panel.menu.add(panel.rangeLabel);
 		panel.xMinLabel = new Label("xMin:", panel, new Point());
 		panel.xMinLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.xMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 80 - panel.xMinLabel.getWidth(), 250));
+		panel.xMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 100 - panel.xMinLabel.getWidth(), 250));
 		panel.xMinLabel.color = new Color(255, 255, 255);
 		panel.xMinLabel.setVisible(false);
 		panel.menu.add(panel.xMinLabel);
 		panel.xMaxLabel = new Label("xMax:", panel, new Point());
 		panel.xMaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.xMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 80 - panel.xMaxLabel.getWidth(), 280));
+		panel.xMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 - 100 - panel.xMaxLabel.getWidth(), 280));
 		panel.xMaxLabel.color = new Color(255, 255, 255);
 		panel.xMaxLabel.setVisible(false);
 		panel.menu.add(panel.xMaxLabel);
 		panel.yMinLabel = new Label("yMin:", panel, new Point());
 		panel.yMinLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.yMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.yMinLabel.getWidth(), 250));
+		panel.yMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.yMinLabel.getWidth(), 250));
 		panel.yMinLabel.color = new Color(255, 255, 255);
 		panel.yMinLabel.setVisible(false);
 		panel.menu.add(panel.yMinLabel);
 		panel.yMaxLabel = new Label("yMax:", panel, new Point());
 		panel.yMaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.yMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.yMaxLabel.getWidth(), 280));
+		panel.yMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 - panel.yMaxLabel.getWidth(), 280));
 		panel.yMaxLabel.color = new Color(255, 255, 255);
 		panel.yMaxLabel.setVisible(false);
 		panel.menu.add(panel.yMaxLabel);
-		panel.xMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 75, 245), Screen);
+		panel.xMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 95, 245), Screen);
 		panel.xMinTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.xMinTextBox.setText("1");
+		panel.xMinTextBox.setText("-5");
 		panel.xMinTextBox.acceptsLetters = false;
 		panel.xMinTextBox.setVisible(false);
 		panel.menu.add(panel.xMinTextBox);
-		panel.xMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 75, 275), Screen);
+		panel.xMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 - 95, 275), Screen);
 		panel.xMaxTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.xMaxTextBox.setText("-1");
+		panel.xMaxTextBox.setText("5");
 		panel.xMaxTextBox.acceptsLetters = false;
 		panel.xMaxTextBox.setVisible(false);
 		panel.menu.add(panel.xMaxTextBox);
-		panel.yMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 245), Screen);
+		panel.yMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 5, 245), Screen);
 		panel.yMinTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.yMinTextBox.setText("1");
+		panel.yMinTextBox.setText("-5");
 		panel.yMinTextBox.acceptsLetters = false;
 		panel.yMinTextBox.setVisible(false);
 		panel.menu.add(panel.yMinTextBox);
-		panel.yMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 275), Screen);
+		panel.yMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 5, 275), Screen);
 		panel.yMaxTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
-		panel.yMaxTextBox.setText("-1");
+		panel.yMaxTextBox.setText("5");
 		panel.yMaxTextBox.acceptsLetters = false;
 		panel.yMaxTextBox.setVisible(false);
 		panel.menu.add(panel.yMaxTextBox);
+		panel.zMinTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 245), Screen);
+		panel.zMinTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.zMinTextBox.setText("-5");
+		panel.zMinTextBox.acceptsLetters = false;
+		panel.zMinTextBox.setVisible(false);
+		panel.menu.add(panel.zMinTextBox);
+		panel.zMaxTextBox = new TextBox(30, 30, panel, new Point(panel.menu.getWidth() / 2 + 105, 275), Screen);
+		panel.zMaxTextBox.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.zMaxTextBox.setText("5");
+		panel.zMaxTextBox.acceptsLetters = false;
+		panel.zMaxTextBox.setVisible(false);
+		panel.menu.add(panel.zMaxTextBox);
+		panel.zMinLabel = new Label("zMin:", panel, new Point());
+		panel.zMinLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.zMinLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.zMinLabel.getWidth(), 250));
+		panel.zMinLabel.color = new Color(255, 255, 255);
+		panel.zMinLabel.setVisible(false);
+		panel.menu.add(panel.zMinLabel);
+		panel.zMaxLabel = new Label("zMax:", panel, new Point());
+		panel.zMaxLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+		panel.zMaxLabel.setLocation(new Point(panel.menu.getWidth() / 2 + 100 - panel.zMaxLabel.getWidth(), 280));
+		panel.zMaxLabel.color = new Color(255, 255, 255);
+		panel.zMaxLabel.setVisible(false);
+		panel.menu.add(panel.zMaxLabel);
 		Timer tim = new Timer();
 		tim.scheduleAtFixedRate(new TimerTask()
 		{
@@ -265,12 +287,12 @@ public class Test {
 					vectorWorking.y-=Math.sin(panel.perspectiveAngle.horizontal + Math.PI / 2) * distance;
 					paint = true;
 				}
-				if (listener.upPressed)
+				if (listener.upPressed && panel.mouseLocked)
 				{
 					panel.perspectiveAngle.vertical+=0.01;
 					paint = true;
 				}
-				if (listener.downPressed)
+				if (listener.downPressed && panel.mouseLocked)
 				{
 					panel.perspectiveAngle.vertical-=0.01;
 					paint = true;
@@ -285,12 +307,12 @@ public class Test {
 					paint = true;
 					vectorWorking.z-=distance;
 				}
-				if (listener.rightPressed)
+				if (listener.rightPressed && panel.mouseLocked)
 				{
 					panel.perspectiveAngle.horizontal-=0.01;
 					paint = true;
 				}
-				if (listener.leftPressed)
+				if (listener.leftPressed && panel.mouseLocked)
 				{
 					panel.perspectiveAngle.horizontal+=0.01;
 					paint = true;
@@ -351,6 +373,10 @@ public class Test {
 						paint = true;
 					}
 				}
+				if (!movementVector.equals(new Point3D(0,0,0)))
+				{
+					paint = true;
+				}
 				movementVector = movementVector.addPoint(addVector);
 				panel.perspectiveLocation = panel.perspectiveLocation.addPoint(movementVector);
 				if (panel.mouseLocked == true)
@@ -407,26 +433,47 @@ public class Test {
 	{
 		for (double k = 0; k < width * width; k+= 1)
 		{
-			double x = k % width * wavelength - width * wavelength / 2 - 20;
-			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 20;
+			Dot a = dots[(int)k];
+			double x = k % width * wavelength - width * wavelength / 2;
+			double y = (int)(k / width) * wavelength - width * wavelength / 2;
 			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
-			Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
+			//Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
+			Variable.variableValue.x.value = x / width / wavelength * (xMax - xMin) + (xMax + xMin) / 2;
+			Variable.variableValue.y.value = y / width / wavelength * (yMax - yMin) + (yMax + yMin) / 2;
+			a.location = new Point3D(x, y, (e.solve() - (zMax + zMin) / 2) / (zMax - zMin) * width * wavelength);
 			a.radius = 40;
 			a.color = new Color((int) (200),(int) (0),(int) (200));
-			panel.addControl3D(a);
-			dots[(int)k] = a;
 		}
 	}
 	public static void worldSetUp(Panel3D panel)
 	{
 		panel.disposeAll();
 		try {
-			Variable.variableValue.a.value = 10;
-			Expression e = new Expression("(a * b)");
-			System.out.println(e.solve());
+			e = new Expression("(cosx)^2 * (cosy)^2");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		try {
+			Variable.variableValue.x.value = 2;
+			Variable.variableValue.y.value = 2;
+			Expression e = new Expression("1/(x^2 + y^2)^0.5");
+			for (Value v : e.subValues)
+			{
+				System.out.println(v.value);
+			}
+			System.out.println("Value: " + e.solve());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		for (double k = 0; k < width * width; k+= 1)
+		{
+			Dot a = new Dot(new Point3D(0,0,0));
+			dots[(int)k] = a;
+			panel.addControl3D(a);
+			dots[(int)k] = a;
 		}
 		graphEquation(panel);
 		if (panel.saturn)

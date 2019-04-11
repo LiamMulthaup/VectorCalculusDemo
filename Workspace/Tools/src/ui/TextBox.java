@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.MouseInfo;
 import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,7 @@ public class TextBox extends Control
 	protected Color backgroundColor = new Color(255, 255, 255);
 	protected TextListener textListener = new TextListener(this);
 	protected boolean textLine = false;
+	protected int textLineIndex = 0;
 	protected Timer tim;
 	public boolean acceptsNumbers = true;
 	public boolean acceptsLetters = true;
@@ -122,6 +124,12 @@ public class TextBox extends Control
 	{
 		super.clickEvent();
 		tim = new Timer();
+		int mX = MouseInfo.getPointerInfo().getLocation().x - panel.getLocationOnScreen().x - location.x;
+		if (mX <= 5)
+		{
+			textLineIndex = 0;
+		}
+		
 		textLine = true;
 		tim.scheduleAtFixedRate(new TimerTask()
 		{
@@ -145,6 +153,8 @@ public class TextBox extends Control
 		super.removeFocus();
 		tim.cancel();
 		textLine = false;
+		textLineIndex = text.length();
+		refreshText();
 		panel.repaint();
 	}
 }
