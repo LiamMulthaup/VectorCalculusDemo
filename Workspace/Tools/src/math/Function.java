@@ -4,7 +4,7 @@ public class Function extends Expression
 {
 	enum functionType
 	{
-		cos, sin, tan, sec, csc, cot, acos, asin, atan, abs, NA;
+		cos, sin, tan, sec, csc, cot, acos, asin, atan, abs, plusAndMinus, NA;
 		public double solve(double solution)
 		{
 			if (this.equals(cos))
@@ -46,6 +46,11 @@ public class Function extends Expression
 			else if (this.equals(abs))
 			{
 				return Math.abs(solution);
+			}
+			else if (this.equals(plusAndMinus))
+			{
+				double random = Math.random() - 0.5;
+				return Math.abs(random) / random * solution;
 			}
 			else
 			{
@@ -101,6 +106,10 @@ public class Function extends Expression
 		else if (function.equals("abs"))
 		{
 			type = functionType.abs;
+		}
+		else if (function.equals("+&-"))
+		{
+			type = functionType.plusAndMinus;
 		}
 		else
 		{

@@ -63,34 +63,34 @@ public class Expression extends Value
 				else
 				{
 					int code = value.codePointAt(i);
-					if (code >= 97 && code <= 122)
+					String excerpt3 = "";
+					if (i + 3 < value.length() + 1)
 					{
-						String excerpt = "";
-						String excerpt2 = "";
-						if (i + 3 < value.length() + 1)
-						{
-							excerpt = value.substring(i, i + 3);
-						}
+						excerpt3 = value.substring(i, i + 3);
+					}
+					if ((code >= 97 && code <= 122) || excerpt3.equals("+&-"))
+					{
+						String excerpt4 = "";
 						if (i + 4 < value.length() + 1)
 						{
-							excerpt2 = value.substring(i, i + 4);
+							excerpt4 = value.substring(i, i + 4);
 						}
-						if (Function.getFunction(excerpt) != Function.functionType.NA)
+						if (Function.getFunction(excerpt3) != Function.functionType.NA)
 						{
 							if (function == 0)
 							{
 								f = i + 3;
-								subString = excerpt;
+								subString = excerpt3;
 							}
 							function++;
 							i+=2;
 						}
-						else if (Function.getFunction(excerpt2) != Function.functionType.NA)
+						else if (Function.getFunction(excerpt4) != Function.functionType.NA)
 						{
 							if (function == 0)
 							{
 								f = i + 4;
-								subString = excerpt2;
+								subString = excerpt4;
 							}
 							function++;
 							i+=3;

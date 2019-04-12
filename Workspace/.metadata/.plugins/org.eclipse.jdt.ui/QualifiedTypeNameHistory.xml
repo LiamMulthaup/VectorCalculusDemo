@@ -13,6 +13,16 @@
 <fullyQualifiedTypeName name="java.awt.Button"/>
 <fullyQualifiedTypeName name="ui.TextBox"/>
 <fullyQualifiedTypeName name="javax.swing.JFrame"/>
-<fullyQualifiedTypeName name="java.awt.Color"/>
 <fullyQualifiedTypeName name="ui.Button"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="Objects3D.Function.functionType"/>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="Objects3D.Variable.variableValue"/>
+<fullyQualifiedTypeName name="math.Value"/>
+<fullyQualifiedTypeName name="math.Variable"/>
+<fullyQualifiedTypeName name="math.Expression"/>
+<fullyQualifiedTypeName name="Objects3D.Test"/>
+<fullyQualifiedTypeName name="java.awt.Color"/>
+<fullyQualifiedTypeName name="Objects3D.Point3D"/>
+<fullyQualifiedTypeName name="math.Variable.variableValue"/>
 </qualifiedTypeNameHistroy>

@@ -434,8 +434,8 @@ public class Test {
 		for (double k = 0; k < width * width; k+= 1)
 		{
 			Dot a = dots[(int)k];
-			double x = k % width * wavelength - width * wavelength / 2;
-			double y = (int)(k / width) * wavelength - width * wavelength / 2;
+			double x = k % width * wavelength - width * wavelength / 2 - 1;
+			double y = (int)(k / width) * wavelength - width * wavelength / 2 - 1;
 			double sineSwitch = Math.cos(k * 12324515131.1564) / Math.abs(Math.cos(k * 12324515131.1564));
 			//Dot a = new Dot(new Point3D(x, y, 1000 * Math.pow(Math.cos(x / 1000),2) * Math.pow(Math.cos(y / 1000), 2)));
 			Variable.variableValue.x.value = x / width / wavelength * (xMax - xMin) + (xMax + xMin) / 2;
@@ -575,7 +575,7 @@ public class Test {
 		
 		if (panel.sun)
 		{
-			LensFlare sun = new LensFlare(new Point3D(100000, 1000000, 0));
+			LensFlare sun = new LensFlare(new Point3D(0, 1000000, 0));
 			sun.color = new Color(247, 184, 19);
 			sun.radius = 100000;
 			panel.addControl3D(sun);
